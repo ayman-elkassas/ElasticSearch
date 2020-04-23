@@ -12,7 +12,24 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use \App\Article;
 
 Route::get('/', function () {
+    Article::addAllToIndex();
+
     return view('welcome');
 });
+
+Route::get('search',function (){
+    $articles = Article::searchByQuery(
+        [
+            'match' => ['body' => 'Beatae'],
+            'match'=>['tags'=>'maxime']
+        ]);
+
+    return $articles;
+});
+
+
+
+
